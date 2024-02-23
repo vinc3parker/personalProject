@@ -8,7 +8,7 @@ import yfinance as yf
 from pandas_datareader import data as pdr
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, LSTM, Dropout
+from tensorflow.keras.layers import Dense, LSTM, Dropout/microsoft/pyright/blob/main/docs/configuration.md
 
 # Load Data
 yf.pdr_override()
@@ -17,9 +17,6 @@ start = dt.datetime(2012,1,1)
 end = dt.datetime(2020,1,1)
 
 data = pdr.get_data_yahoo(company, start, end)
-print("ERROR IN")
-data.head()
-print("ERROR OUT")
 
 # Prepare Data
 scaler = MinMaxScaler(feature_range=(0,1))
