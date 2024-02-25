@@ -8,7 +8,7 @@ import yfinance as yf
 from pandas_datareader import data as pdr
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, LSTM, Dropout/microsoft/pyright/blob/main/docs/configuration.md
+from tensorflow.keras.layers import Dense, LSTM, Dropout
 
 # Load Data
 yf.pdr_override()
