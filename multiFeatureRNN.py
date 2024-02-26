@@ -7,8 +7,8 @@ import yfinance as yf
 
 from pandas_datareader import data as pdr
 from sklearn.preprocessing import MinMaxScaler
-#from tensorflow.keras.models import Sequential
-#from tensorflow.keras.layers import Dense, LSTM, Dropout
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, LSTM, Dropout
 
 # Load Data
 yf.pdr_override()
@@ -21,7 +21,7 @@ data = pdr.get_data_yahoo(company, start, end)
 # Prepare Data
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled_data = scaler.fit_transform(data[['Open', 'High', 'Low', 'Close']])
-print(scaled_data[:20])
+
 prediction_days = 60
 
 x_train = []
@@ -33,7 +33,6 @@ for x in range(prediction_days, len(scaled_data)):
 
 x_train, y_train = np.array(x_train), np.array(y_train)
 
-"""
 # Build the model
 model = Sequential()
 
@@ -53,7 +52,7 @@ test_start = dt.datetime(2020, 1, 1)
 test_end = dt.datetime(2021, 1, 1)
 
 test_data = pdr.get_data_yahoo(company, test_start, test_end)
-actual_prices = test_data['Close'].values
+actual_prices = test_data['Open', 'High', 'Low', 'Close'].values
 
 total_dataset = pd.concat((data['Close'], test_data['Close']), axis=0)
 
