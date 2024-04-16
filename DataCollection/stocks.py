@@ -12,13 +12,13 @@ markets = 'markets'
 ticker = "AAPL"
 start_date = "2022-01-01"   # DO NOT CHANGE START DATE AND END DATE AT THE SAME TIME
 end_date = "2024-01-01"     # DO NOT CHANGE START DATE AND END DATE AT THE SAME TIME
-data_points = ["Date DATE", "Open FLOAT", "High FLOAT", "Low FLOAT", "Close FLOAT"]
+data_points = ["Date DATE", "Open FLOAT", "High FLOAT", "Low FLOAT", "Close FLOAT", "Volume FLOAT"]
 
 
 # Datatype conversion
 start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
 end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
-data_columns = ["Date", "Open", "High", "Low", "Close"]
+data_columns = ["Date", "Open", "High", "Low", "Close", "Volume"]
 
 # Function to update the database with stock data
 def update_stock_data(ticker, start_date, end_date, data_points):
@@ -57,7 +57,10 @@ def fetch_ticker_data(ticker, start_date, end_date):
     print(data)
     return data
 
+def get_all_tickers(market):
+    all_tickers = yf.Tickers(market)
+    return all_tickers.tickers
 
-# Update the database with stock data
-update_stock_data(ticker, start_date, end_date, data_points)
 
+msft = yf.Ticker("MSFT")
+print(msft.news)
