@@ -1,6 +1,7 @@
 import mysql.connector
 from datetime import timedelta
 from datetime import datetime
+import pandas as pd
 
 # Function to connect to a specific database within the MySQL server
 def connect_to_database(database):
@@ -209,6 +210,7 @@ def check_cells_for_null(connection, table):
         end_date = None
 
         for date in dates:
+            print(date)
             date = str(date)
             cursor.execute(f"SELECT * FROM {table} WHERE date = %s", (date,))
             row = cursor.fetchone()
@@ -287,6 +289,22 @@ def delete_rows_with_null(connection, table):
     except mysql.connector.Error as err:
         print("Error deleting rows with null values:", err)
  
+# Function that collects ticker data from MySQL
+def ticker_data(connection, table):
+    try:
+        cursor = connection.cursor()
+        # Execute query to fetch all columns from the table
+        cursor.execute(f"SELECT * FROM {table}")
+        # Fetch all rows from the result set
+        rows = cursor.fetchall()
+        # Get column names from cursor description
+        columns = [desc[0] for desc in cursor.description]
+        # Convert rows to DataFrame
+        df = pd.DataFrame(rows, columns=columns)
+        return df
+    except mysql.connector.Error as err:
+        print("Error fetching data from table:", err)
+        return None
 
 def main():
     host = "localhost"
